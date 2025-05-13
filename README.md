@@ -156,3 +156,212 @@ The markdown includes:
 - Emoji visual cues
 - Placeholder images (replace with actual ones)
 - Clear structure for portfolio presentation
+
+
+
+
+
+
+![Project Banner](https://github.com/SUPUN-GIMHANA/Ticket-Booking-System/blob/main/Screenshot%202025-05-13%20214624.png?raw=true)
+
+
+Here's a beautiful README.md file for your Ticket Management System frontend React application:
+
+```markdown
+# 🎟️ Ticket Management System - Frontend
+
+![React Ticket Dashboard](https://via.placeholder.com/1200x400/4a6fa5/ffffff?text=Ticket+Management+Dashboard)
+
+[![React](https://img.shields.io/badge/React-18-%2361DAFB?logo=react)](https://reactjs.org/)
+[![Chart.js](https://img.shields.io/badge/Chart.js-3-%23FF6384?logo=chart.js)](https://www.chartjs.org/)
+[![STOMP](https://img.shields.io/badge/STOMP-1.2-%2300A1E4?logo=socket.io)](https://stomp.github.io/)
+[![SockJS](https://img.shields.io/badge/SockJS-1.6-%23000000?logo=socket.io)](https://github.com/sockjs/sockjs-client)
+
+A dynamic React dashboard for real-time ticket management with WebSocket integration, animated charts, and form validation.
+
+## ✨ Features
+
+<div align="center">
+  <img src="https://via.placeholder.com/800x400/4a6fa5/ffffff?text=Dashboard+Preview" alt="Dashboard Preview">
+</div>
+
+| Feature | Description |
+|---------|-------------|
+| 📊 **Real-time Updates** | Live WebSocket connection with STOMP protocol |
+| 📈 **Animated Charts** | Smooth transitions with Chart.js visualizations |
+| 📝 **Form Validation** | Client-side validation for all input fields |
+| 💬 **System Messages** | Real-time message display from backend |
+| 🎨 **Responsive Design** | Adapts to different screen sizes |
+
+## 🛠️ Technology Stack
+
+```mermaid
+graph TD
+    A[React 18] --> B[WebSocket]
+    A --> C[Chart.js]
+    B --> D[STOMP.js]
+    B --> E[SockJS]
+    C --> F[Bar Charts]
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 16+
+- npm 8+
+- Backend server running (see backend README)
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/ticket-management-frontend.git
+
+# Navigate to project directory
+cd ticket-management-frontend
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm start
+```
+
+## 🏗️ Project Structure
+
+```
+src/
+├── components/
+│   ├── Hero/               # Main dashboard component
+│   │   ├── Hero.js         # Dashboard logic
+│   │   └── Hero.css        # Dashboard styles
+│   └── Navbar/            # Navigation component
+│       ├── Navbar.js       # Navbar logic
+│       └── Navbar.css      # Navbar styles
+├── App.js                 # Root component
+└── index.js               # Application entry point
+```
+
+## 📊 Component Highlights
+
+### WebSocket Connection
+```javascript
+useEffect(() => {
+  const stompClient = new Client({
+    webSocketFactory: () => new SockJS(socketURL),
+    reconnectDelay: 5000,
+    debug: (str) => console.log(str),
+  });
+
+  stompClient.onConnect = () => {
+    stompClient.subscribe('/topic/ticketUpdates', (message) => {
+      const update = JSON.parse(message.body);
+      setTicketUpdates(prev => ({
+        totalTickets: update.totalTickets || prev.totalTickets,
+        // ...other updates
+      }));
+    });
+  };
+  
+  stompClient.activate();
+  return () => stompClient.deactivate();
+}, []);
+```
+
+### Animated Chart
+```javascript
+const chartData = {
+  labels: ['Tickets'],
+  datasets: [
+    {
+      label: 'Total Tickets',
+      data: [currentTicketValues.totalTickets],
+      backgroundColor: 'rgba(75, 192, 192, 0.6)',
+    },
+    // ...other datasets
+  ]
+};
+
+<Bar data={chartData} options={{
+  animation: {
+    duration: 500,
+    easing: 'easeOutQuart'
+  }
+}} />
+```
+
+### Form Validation
+```javascript
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  
+  // Integer validation
+  if (['id', 'totalTicket'].includes(name)) {
+    if (!/^\d*$/.test(value)) {
+      setErrors(prev => ({...prev, integers: `${name} must be an integer`}));
+      return;
+    }
+  }
+  
+  // Name validation
+  if (name === 'customerName' && !/^[a-zA-Z\s]*$/.test(value)) {
+    setErrors(prev => ({...prev, customerName: 'Letters and spaces only'}));
+    return;
+  }
+  
+  setFormData(prev => ({...prev, [name]: value}));
+};
+```
+
+## 🎨 CSS Structure
+
+The application uses modular CSS with:
+- Responsive grid layouts
+- Animated transitions
+- Error state styling
+- Card-based components
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+Distributed under the MIT License.
+
+## 📧 Contact
+
+Your Name - [your.email@example.com](mailto:your.email@example.com)
+
+Project Link: [https://github.com/yourusername/ticket-management-frontend](https://github.com/yourusername/ticket-management-frontend)
+
+---
+
+<div align="center">
+  <img src="https://via.placeholder.com/200/4a6fa5/ffffff?text=TMS" alt="Logo" width="100">
+  <p>Dynamic Ticket Management Dashboard</p>
+</div>
+```
+
+For the actual implementation:
+1. Replace placeholder images with actual screenshots
+2. Update the contact information and GitHub links
+3. Add any additional features or components
+4. Include a demo GIF/video if available
+5. Add deployment instructions if applicable
+
+The README includes:
+- Visual badges
+- Feature table
+- Technology diagram
+- Code snippets
+- Clean project structure
+- Contribution guidelines
+- Responsive design notes
